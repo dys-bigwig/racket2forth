@@ -5,7 +5,6 @@
 (define fixnum-shift 2)
 (define char-shift 8)
 (define char-tag #b0111)
-(define bool-tag #b1111)
 
 (define (immediate-rep x)
   (define convert

@@ -25,8 +25,7 @@
   (define (run)
     (void (system (format "gforth ~a" filename))))
 
-  (with-output-to-file filename
-                       #:exists 'replace
+  (with-output-to-file filename #:exists 'replace
    (λ ()
     (emit (compile-program program))))
 

@@ -3,7 +3,6 @@
 (require "main.rkt")
 
 ;bools
-
 (check-equal? (compile-and-run #t "test.fs") "#t")
 (check-equal? (compile-and-run #f "test.fs") "#f")
 

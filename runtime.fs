@@ -28,7 +28,7 @@
 : show
   dup
     ?fixnum if
-        FIXNUM-SHIFT rshift . else
+      2/ 2/ . else
   dup
     ?char if
         CHAR-SHIFT rshift emit else

@@ -1,5 +1,5 @@
-%0011 constant FIXNUM-MASK
-%0000 constant FIXNUM-TAG
+%11 constant FIXNUM-MASK
+%00 constant FIXNUM-TAG
 2 constant FIXNUM-SHIFT
 
 %1111 constant CHAR-MASK
@@ -9,30 +9,33 @@
 %100001111 constant #t
 %000001111 constant #f
 
-: ?fixnum FIXNUM-MASK and
-          FIXNUM-TAG =
+: ?fixnum           ( Scheme-val -> Bool )
+    FIXNUM-MASK and ( mask all but bits 0-1)
+    FIXNUM-TAG =    ( compare bits to fixnum tag )
 ;
 
-: ?char CHAR-MASK and
-        CHAR-TAG =
+: ?char           ( Scheme-val -> Bool )
+    CHAR-MASK and ( mask all but bits 0-3 )
+    CHAR-TAG =    ( compare bits to char tag )
 ;
 
-: ?bool dup #t =
-        swap #f =
-        or
+: ?bool       ( Scheme-val -> Bool )
+    dup #t =  ( dup val and compare with representation of #t )
+    swap #f = ( swap and compare with representation of #f )
+    or        ( or results; true if val is #t or #f )
 ;
 
 : show
   dup
-    ?fixnum 
-        if FIXNUM-SHIFT rshift . else
+    ?fixnum if
+        FIXNUM-SHIFT rshift . else
   dup
-    ?char
-        if CHAR-SHIFT rshift emit else
+    ?char if
+        CHAR-SHIFT rshift emit else
   dup
-    ?bool
-        if #t =
-          if ." #t"
-          else ." #f"
-  endif endif endif endif
+    ?bool if
+      case
+        #t of ." #t" endof
+        #f of ." #f" endof
+      endcase endif endif endif
 ; 
